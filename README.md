@@ -1,5 +1,3 @@
-# This repo is under construction. You may find some parts not working as expected.
-
 ### Checkout "dev" branch to see which part I'm working on right now
 
 ### Following feature will be added in this repo
