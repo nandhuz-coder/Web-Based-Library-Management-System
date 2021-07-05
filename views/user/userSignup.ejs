@@ -1,45 +1,47 @@
 <% include ../partials/header %>
 <% include ../partials/navbar %>
 
+<div style="background-image: url('https://cdn.wallpapersafari.com/50/49/ayEdDo.jpg');">
 <section id="usersignUpForm">
   <div class="container mt-5">
     <div class="row">
       <div class="col-md-6 offset-md-3">
-        <div class="card">
+        <div class="card" style="margin-top: 20%; margin-bottom: 10%;">
           <div class="card-header text-center">
             <h4>User Sign Up</h4>
           </div>
-            <div class="card-block">
+            <div class="card-block" style="background-color: rgb(99, 102, 98);">
               <form class="p-3" action="/auth/user-signUp" method="POST">
-                  
+                <div class="column">  
                 <div class="form-group">
                   <label class="form-control-label">First Name</label>
-                  <input type="text" id="firstname" name="firstName" placeholder="firstName" class="form-control" required>
+                  <input type="text" id="firstname" name="firstName" placeholder="firstName" class="form-control" required style="border-radius: 20px;">
                 </div>
                 
                  <div class="form-group">
                   <label class="form-control-label">Last Name</label>
-                  <input type="text" id="lastname" name="lastName" placeholder="lastName" class="form-control" required>
+                  <input type="text" id="lastname" name="lastName" placeholder="lastName" class="form-control" required style="border-radius: 20px;">
                 </div>
                   
                 <div class="form-group">
                   <label class="form-control-label">Pick a username</label>
-                  <input type="text" id="username" name="username" placeholder="Username" class="form-control" required>
+                  <input type="text" id="username" name="username" placeholder="Username" class="form-control" required style="border-radius: 20px;">
                 </div>
                 
                 <div class="form-group">
                   <label class="form-control-label">Email</label>
-                  <input type="email" id="email" name="email" placeholder="Email" class="form-control" required>
+                  <input type="email" id="email" name="email" placeholder="Email" class="form-control" required style="border-radius: 20px;">
                 </div>
-                
+              </div>
+              <div class="column"> 
                 <div class="form-group">
                   <label class="form-control-label">Password</label>
-                  <input type="password" id="password" name="password" placeholder="Password" class="form-control" required>
+                  <input type="password" id="password" name="password" placeholder="Password" class="form-control" required style="border-radius: 20px;">
                 </div>
                 
                  <div class="form-group">
                   <label class="form-control-label">Gender</label>
-                  <select name="gender" id="gender" class="form-control" >
+                  <select name="gender" id="gender" class="form-control" style="border-radius: 20px;">
                     <option name="male">Male</option>
                     <option name="female">Female</option>
                     <option name="others">Others</option>
@@ -48,10 +50,11 @@
                 
                  <div class="form-group">
                   <label class="form-control-label">Address</label>
-                  <input type="text" name="address" id="address" placeholder="Address" class="form-control" required>
+                  <input type="text" name="address" id="address" placeholder="Address" class="form-control" required style="border-radius: 20px;">
                 </div>
                 
-                <button type="submit" id="btn_submit" class="btn btn-primary btn-block">Submit</button>
+                <button type="submit" id="btnsubmit" class="btn btn-primary btn-block" style="border-radius: 20px;">Submit</button>
+              </div> 
               </form>
             </div>
         </div>
@@ -59,6 +62,6 @@
     </div>
   </div>
 </section>
-
+</div>
 
 <% include ../partials/footer %>
