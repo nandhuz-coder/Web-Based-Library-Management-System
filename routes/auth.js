@@ -1,6 +1,6 @@
 const express = require("express"),
-      router = express.Router(),
-      passport = require('passport');
+    router = express.Router(),
+    passport = require('passport');
 
 
 // Import index controller
@@ -15,10 +15,25 @@ router.get('/', authController.getLandingPage);
 //admin login handler
 router.get("/auth/admin-login", authController.getAdminLoginPage)
 
-router.post("/auth/admin-login", passport.authenticate("local", {
-        successRedirect : "/admin",
-        failureRedirect : "/auth/admin-login",
-    }), (req, res)=> {
+router.post("/auth/admin-login", function (req, res, next) {
+    passport.authenticate('local', function (err, user, info) {
+        if (err) { return next(err); }
+        if (!user) {
+            req.flash(
+                "error",
+                "Please provide Valid Username and password"
+            );
+            return res.redirect('/auth/admin-login');
+        }
+        req.logIn(user, function (err) {
+            if (err) { return next(err); }
+            req.flash(
+                "success",
+                "Hello, " + user.username + " Welcome"
+            );
+            res.redirect("/admin");
+        });
+    })(req, res, next);
 });
 
 //admin logout handler
@@ -33,10 +48,25 @@ router.post("/auth/admin-signup", authController.postAdminSignUp);
 //user login handler
 router.get("/auth/user-login", authController.getUserLoginPage);
 
-router.post("/auth/user-login", passport.authenticate("local", {
-        successRedirect : "/user/1",
-        failureRedirect : "/auth/user-login",
-    }), (req, res)=> {
+router.post("/auth/user-login", function (req, res, next) {
+    passport.authenticate('local', function (err, user, info) {
+        if (err) { return next(err); }
+        if (!user) {
+            req.flash(
+                "error",
+                "Please provide Valid Username and password"
+            );
+            return res.redirect('/auth/user-login');
+        }
+        req.logIn(user, function (err) {
+            if (err) { return next(err); }
+            req.flash(
+                "success",
+                "Hello, " + user.username + " Welcome"
+            );
+            res.redirect("/user/1");
+        });
+    })(req, res, next);
 });
 
 //user -> user logout handler

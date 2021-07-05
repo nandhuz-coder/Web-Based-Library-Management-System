@@ -49,7 +49,7 @@ exports.postAdminSignUp = async (req, res, next) => {
       "error",
       "Given info matches someone registered as User. Please provide different info for registering as Admin"
     );
-    return res.render("signup");
+    return res.redirect('signup');
   }
 };
 
@@ -76,14 +76,24 @@ exports.postUserSignUp = async (req, res, next) => {
       email: req.body.email,
       gender: req.body.gender,
       address: req.body.address,
+      password: req.body.password,
     });
 
-    await User.register(newUser, req.body.password);
+    const user = await User.register(newUser, req.body.password);
     await passport.authenticate("local")(req, res, () => {
+      req.flash(
+        "success",
+        "Hello, " + user.username + " Welcome"
+      );
       res.redirect("/user/1");
     });
   } catch (err) {
-    console.log(err);
-    return res.render("user/userSignup");
+    console.log(err)
+    req.flash(
+      "error",
+      "Given info matches someone registered as User. Please provide different info for registering as User"
+    );
+    return res.redirect('/auth/user-signup');
+
   }
 };

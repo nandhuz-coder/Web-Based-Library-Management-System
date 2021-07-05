@@ -1,40 +1,48 @@
 <% include ../partials/header %>
-<% include ../partials/navbar %>
+  <% include ../partials/navbar %>
 
-  <% include ../partials/alerts %>
+    <style>
+      #userLoginForm {
+        background: url('/image/other/2.jpg') no-repeat;
+        background-position: center;
+        background-attachment: fixed;
+        background-size: 100% 100%;
+        -webkit-background-size: 100% 100%;
+        -moz-background-size: 100% 100%;
+        -o-background-size: 100% 100%;
+        -ms-background-size: 100% 100%;
+      }
+    </style>
 
-
-
-    <div style="background-image: url('https://cdn.wallpapersafari.com/50/49/ayEdDo.jpg');" width="500" height="600">
-      <br><BR></BR> <BR></BR>
-      <section id="userLoginForm">
-        <div class="container mt-5">
-          <div class="row">
-            <div class="col-md-6 offset-md-3">
-              <div class="card">
-                <div class="card-header text-center">
+    <section id="userLoginForm">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 offset-md-3">
+            <div class="card" style="margin-top: 5%; margin-bottom: 5%;">
+              <div class="card-header text-center">
+                <% include ../partials/alerts %>
                   <h4>User Login</h4>
-                </div>
-                <div class="card-block" style="background-color: rgb(99, 102, 98);">
-                  <form class="p-3" action="/auth/user-login" method="POST">
-                    <div class="form-group">
-                      <label class="form-control-label">Username</label>
-                      <input type="text" id="username" name="username" placeholder="Username" class="form-control"
-                        required style="border-radius: 20px;">
-                    </div>
-                    <div class="form-group">
-                      <label class="form-control-label">Password</label>
-                      <input type="password" id="password" name="password" placeholder="Password" class="form-control"
-                        required style="border-radius: 20px;">
-                    </div>
-                    <button type="submit" id="submit_btn" class="btn btn-success btn-block"
-                      style="border-radius: 20px;">Login!</button>
-                  </form>
-                </div>
+              </div>
+              <div class="card-block" style="background-color: rgb(99, 102, 98);">
+                <form class="p-3" action="/auth/user-login" method="POST">
+                  <div class="form-group">
+                    <label class="form-control-label">Username</label>
+                    <input type="text" id="username" name="username" placeholder="Username" class="form-control"
+                      required style="border-radius: 20px;">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-control-label">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Password" class="form-control"
+                      required style="border-radius: 20px;">
+                  </div>
+                  <button type="submit" id="submit_btn" class="btn btn-success btn-block"
+                    style="border-radius: 20px;">Login!</button>
+                </form>
               </div>
             </div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <% include ../partials/footer %>
+    <% include ../partials/footer %>
