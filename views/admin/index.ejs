@@ -22,7 +22,7 @@
         
         <form action="/admin" method="POST">
            <div class="input-group">
-            <input name="searchUser" type="text" class="form-control" placeholder="Find activities by username, category">
+            <input name="searchUser" type="text" id="search" class="form-control" placeholder="Find activities by username, category">
             <span class="input-group-btn">
               <button class="btn btn-primary">Search</button>
             </span>
@@ -173,7 +173,7 @@
           <div class="card-block">
             <h3>Books</h3>
             <h1 class="display-4"><i class="fa fa-pencil"></i> <%=books_count%></h1>
-            <a href="/admin/bookInventory/all/all/1" class="btn btn-outline-light">View</a>
+            <a href="/admin/bookInventory/all/all/1" id="add_books" class="btn btn-outline-light">View</a>
           </div>
         </div>
 
