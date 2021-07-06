@@ -1,4 +1,4 @@
-//testcafe chrome ./TestCafeTestingP/addBook.test.js
+//testcafe chrome ./TestCafeTestingP/addBook1.test.js
 
 import { Selector, Role } from 'testcafe';
 
@@ -27,7 +27,7 @@ test('Admin Add a Book Test', async t => {
             .typeText('#book-ISBN', '978-1-4088-5567-7')
             .typeText('#book-category', 'Fiction')
             .typeText('#book-stock', '5')
-            .expect(Selector('textarea').value).eql('Famous Fiction')
+            .typeText('#book-description', 'Famous Fiction')
             .click('#add-book-btn');
     
 });

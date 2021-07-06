@@ -1,72 +1,75 @@
 <% include ../partials/header %>
 
-<!--NAVIGATION BAR FOR ADMIN-->
-<% include ../partials/adminNav %>
+  <!--NAVIGATION BAR FOR ADMIN-->
+  <% include ../partials/adminNav %>
 
 
-<!--DASHBOARD SECTION-->
-<header id="main-header" class="py-2 bg-primary text-white">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6">
-        <h1><i class="fa fa-gear"></i> Dashboard</h1>
+    <!--DASHBOARD SECTION-->
+    <header id="main-header" class="py-2 bg-primary text-white">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <h1><i class="fa fa-gear"></i> Dashboard</h1>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="card-header text-center">
+            <% include ../partials/alerts %>
+              <h4>Add Book</h4>
+          </div>
+
+          <form class="p-3" action="/admin/books/add" method="POST">
+            <div class="row">
+              <div class="col-md-6">
+
+                <div class="form-group">
+                  <label class="form-control-label">Title</label>
+                  <input type="text" name="book[title]" id="book-title" placeholder="Book Title" class="form-control"
+                    required>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-control-label">Author Name</label>
+                  <input type="text" name="book[author]" id="book-author" placeholder="Author Name" class="form-control"
+                    required>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-control-label">ISBN</label>
+                  <input type="text" name="book[ISBN]" id="book-ISBN" placeholder="ISBN" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-control-label">Category</label>
+                  <input type="text" name="book[category]" id="book-category" placeholder="Book Category"
+                    class="form-control" required>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="form-control-label">Stock</label>
+                  <input type="Number" name="book[stock]" id="book-stock" placeholder="Book Stocks" class="form-control"
+                    required>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-control-label">Book Description</label>
+                  <textarea name="book[description]" id="book-description" cols="30" rows="5" class="form-control"
+                    required></textarea>
+                </div>
+
+              </div>
+              <button type="submit" class="btn btn-primary btn-block" id="add-book-btn"
+                style="width: 50%;margin-left: 25%;">Add Book</button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
-  </div>
-</header>
 
-<div class="container my-4">
-    <div class="row justify-content-center">
-        <div class="col-md-7">
-            <div class="card">
-              <div class="card-header text-center">
-                <% include ../partials/alerts %>
-                <h4>Add Book</h4>
-              </div>
-                <div class="card-block">
-                  <form class="p-3" action="/admin/books/add" method="POST">
-                      
-                    <div class="form-group">
-                      <label class="form-control-label">Title</label>
-                      <input type="text" name="book[title]" id="book-title" placeholder="Book Title" class="form-control" required>
-                    </div>
-                    
-                    <div class="form-group">
-                      <label class="form-control-label">Author Name</label>
-                      <input type="text" name="book[author]" id="book-author" placeholder="Author Name" class="form-control" required>
-                    </div>
-                    
-                    <div class="form-group">
-                      <label class="form-control-label">ISBN</label>
-                      <input type="text" name="book[ISBN]" id="book-ISBN" placeholder="ISBN" class="form-control" required>
-                    </div>
-                    
-                    <div class="form-group">
-                      <label class="form-control-label">Category</label>
-                      <input type="text" name="book[category]" id="book-category" placeholder="Book Category" class="form-control" required>
-                    </div>
-                    
-                    <div class="form-group">
-                      <label class="form-control-label">Stock</label>
-                      <input type="Number" name="book[stock]" id="book-stock" placeholder="Book Stocks" class="form-control" required>
-                    </div>
-                    
-                    <div class="form-group">
-                      <label class="form-control-label">Book Description</label>
-                      <textarea name="book[description]" id="book-description" cols="30" rows="10" class="form-control" required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-block" id="add-book-btn">Add Book</button>
-                  </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
-<script>
-  CKEDITOR.replace('book[description]');
-</script>
-
-<% include ../partials/footer %>
+    <% include ../partials/footer %>
