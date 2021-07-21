@@ -68,7 +68,7 @@
   </nav>
 
   <!--SEARCH BAR-->
-  <section id="search_bar" class="my-3 py-4 bg-light">
+  <section id="search_bar" class="my-3 py-4" style="background: rgb(52, 185, 174);">
     <div class="container">
       <form action="/books/all/all/1" method="POST">
         <div class="row">
@@ -87,7 +87,7 @@
           </div>
 
           <div class="col-md-2 p-1">
-            <input type="submit" id="search-book-btn" class="btn btn-outline-primary btn-block" value="Search">
+            <input type="submit" id="search-book-btn" class="btn btn-warning btn-block" value="Search">
           </div>
         </div>
       </form>
@@ -101,19 +101,19 @@
       <div class="container">
         <div class="row">
           <% for(var i=0; i < books.length; i++) { %>
-            <div class="card col-md-3 text-center" style="margin-right: 10px;">
+            <div class="card col-md-3 text-center" style="margin-right: 10px; border-radius: 10%;border: 1px solid black;">
               <div class="card-body">
                 <h5 class="card-title">
                   <%=books[i].title%>
                 </h5>
-                <p class="text-muted">
-                  <small class="text-muted">Author : <%=books[i].author%></small>
+                <p>
+                  <small style="color: red;">Author : <%=books[i].author%></small>
                 </p>
-                <p class="text-muted">
-                  <small class="text-muted">Category : <%=books[i].category%></small>
+                <p>
+                  <small style="color: rgb(20, 168, 40);">Category : <%=books[i].category%></small>
                 </p>
-                <p class="text-muted">
-                  <small class="text-muted">In stock : <%=books[i].stock%></small>
+                <p>
+                  <small style="color: rgb(52, 33, 219);">In stock : <%=books[i].stock%></small>
                 </p>
 
 
@@ -132,7 +132,7 @@
                             </form>
                             <% } %>
                               <% } %>
-                                <a href="/books/details/<%=books[i]._id%>" class="btn btn-xs btn-primary">Details</a>
+                                <a href="/books/details/<%=books[i]._id%>" class="btn btn-sm btn-success">Details</a>
               </div>
             </div>
             <% } %>
