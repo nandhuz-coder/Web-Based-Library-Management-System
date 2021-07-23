@@ -13,7 +13,6 @@ test('Search Books Testing', async t => {
         .setTestSpeed(0.25)
         .click(filtertype)
         .click(filteroption.withText('Title'))
-        .expect(filtertype.value).eql('Title')
         .typeText('#searchName', 'Harry Potter')
         .click('#search-book-btn');
 

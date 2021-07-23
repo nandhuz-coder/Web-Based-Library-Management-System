@@ -10,8 +10,6 @@
 
 # Library-Management-System
 
-A simple online library management system built with MongodDB, Express.js and Node.js. [Click here](https://demo-library-system.herokuapp.com/) to see the application
-
 ## Techonologies used in this application
 
 ### Front-end
@@ -43,7 +41,7 @@ Open git bash or command line tools at application file and run following npm co
 - create a `.env` file in app directory
 - add `SESSION_SECRET=<your session secret>`, `ADMIN_SECRET=<your admin secret>` and `DB_URL=<your mongodb url>` into that file.
 - run `npm run dev`
-- App will open at [http://localhost:3000](http://localhost:3000)
+- App will open at [http://localhost:3000]
 
 ## Functionalitites
 
@@ -66,7 +64,6 @@ Whole app is divided into three modules.
 - Find users by firstname, lastname, email and username
 - Delete user acount
 - Restrict individual user if violate any terms and conditions
-- Send notification to all/individual/filtered user (not ready yet, will be added as soon as I learn socket.io)
 - Browse books showcase
 - Update admin profile and password
 - Add new admin
@@ -81,7 +78,6 @@ Whole app is divided into three modules.
 - Issue books
 - Renew books
 - Return books
-- Pay fines (not ready yet, will be added asap)
 - Browse books showcase
 - Add, edit and delete comment on any books comment section
 - Upload/Update profile picture

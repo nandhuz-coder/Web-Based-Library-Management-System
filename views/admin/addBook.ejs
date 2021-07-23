@@ -46,8 +46,15 @@
 
                 <div class="form-group">
                   <label class="form-control-label">Category</label>
-                  <input type="text" name="book[category]" id="book-category" placeholder="Book Category"
-                    class="form-control" required>
+                  <select class="form-control" name="book[category]" id="book-category" required>
+                    <option selected>Book Category</option>
+                    <option value="A+">Fiction</option>
+                    <option value="A-">Novel</option>
+                    <option value="B+">Short Story</option>
+                    <option value="B-">Educational</option>
+                    <option value="B-">Religious</option>
+                    <option value="B-">History</option>
+                  </select>
                 </div>
               </div>
               <div class="col-md-6">
