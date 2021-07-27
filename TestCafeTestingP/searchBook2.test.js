@@ -1,4 +1,4 @@
-//testcafe chrome ./TestCafeTestingP/searchBook.test.js
+//testcafe chrome ./TestCafeTestingP/searchBook2.test.js
 
 import { Selector} from 'testcafe';
 
@@ -10,10 +10,10 @@ const filteroption = filtertype.find('option');
 
 test('Search Books Testing', async t => {
     await t
-        .setTestSpeed(0.25)
+        .setTestSpeed(0.20)
         .click(filtertype)
         .click(filteroption.withText('Title'))
-        .typeText('#searchName', 'Harry Potter')
+        //.typeText('#searchName', 'Harry Potter')
         .click('#search-book-btn');
 
 });
