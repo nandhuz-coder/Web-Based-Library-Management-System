@@ -1,15 +1,6 @@
 //testcafe chrome ./TestCafeTestingP/addBook2.test.js
 
-import { Selector, Role } from 'testcafe';
-
-const admin = Role('http://localhost:3000/auth/admin-login', async t => {
-    await t
-        .setTestSpeed(0.2)
-        .typeText('#username', 'prageeth')
-        .typeText('#password', '111111')
-        .click('#btn_submit')
-        .click("#add_books");
-});
+import { Selector } from 'testcafe';
 
 fixture`My fixture`
     .page`http://localhost:3000/auth/admin-login`;

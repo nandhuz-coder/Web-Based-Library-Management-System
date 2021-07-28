@@ -26,13 +26,13 @@
       </div>
       
        <div class="col">
-        <a href="" class="btn btn-primary btn-block" data-toggle="modal" data-target="#userNameModal">
+        <a href="" class="btn btn-primary btn-block" data-toggle="modal" data-target="#userNameModal" id="edit-profile">
           <i class="fa fa-user"></i> Edit Profile
         </a>
       </div>
 
       <div class="col">
-        <a href="" class="btn btn-warning btn-block" data-toggle="modal" data-target="#passwordModal">
+        <a href="" class="btn btn-warning btn-block" data-toggle="modal" data-target="#passwordModal" id="update-password">
           <i class="fa fa-lock"></i> Update Password
         </a>
       </div>
@@ -83,14 +83,14 @@
         <button class="close" data-dismiss="modal" ><span>&times;</span></button>
       </div>
       <div class="modal-body">
-        <form action="/admin/update-password?_method=PUT" method="POST">
+        <form action="/admin/update-password" method="POST">
           <div class="form-group">
             <label for="password" class="form-control-label">Old Password</label>
-            <input type="password" name="oldPassword" class="form-control">
+            <input type="password" name="oldPassword" id="oldPassword" class="form-control">
           </div>
           <div class="form-group">
             <label for="password" class="form-control-label">New Password</label>
-            <input id="password" type="password" name="password" class="form-control">
+            <input type="password" name="newPassword" id="newPassword" class="form-control">
           </div>
 
           <div class="form-group">
@@ -98,7 +98,7 @@
             <input id="confirmPassword" type="password" name="confirmPassword" class="form-control">
              <span id='message'></span>
           </div>
-          <button id="button" class="btn btn-warning btn-block">Submit</button>
+          <button id="button" class="btn btn-warning btn-block" >Submit</button>
         </form>
       </div> 
     </div>
@@ -124,9 +124,9 @@
           
           <div class="form-group">
             <label for="admin[email]" class="form-control-label">Edit Email</label>
-            <input name="admin[email]" type="email" class="form-control" value="<%=currentUser.email%>">
+            <input name="admin[email]" type="email" id="admin-edit-email" class="form-control" value="<%=currentUser.email%>">
           </div>
-          <button class="btn btn-primary btn-block">Update!</button>
+          <button class="btn btn-primary btn-block" id="update-profile-btn">Update!</button>
         </form>
       </div>
     </div>
@@ -158,7 +158,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
   $('#confirmPassword').on('keyup', function () {
-    if ($(this).val() == $('#password').val()) {
+    if ($(this).val() == $('#newPassword').val()) {
       $('#message').html('Matched').css('color', 'green');
       $('#button').removeClass("d-none")
     } 

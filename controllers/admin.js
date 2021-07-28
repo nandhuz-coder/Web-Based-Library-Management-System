@@ -441,10 +441,9 @@ exports.putUpdateAdminPassword = async (req, res, next) => {
     try {
         const user_id = req.user._id;
         const old_password = req.body.oldPassword;
-        const new_password = req.body.password;
-
+        const password = req.body.newPassword;
         const admin = await User.findById(user_id);
-        await admin.changePassword(old_password, new_password);
+        await admin.changePassword(old_password, password);
         await admin.save();
 
         req.flash("success", "Your password is changed recently. Please login again to confirm");

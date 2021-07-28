@@ -70,7 +70,7 @@ router.get("/admin/profile", middleware.isAdmin, adminController.getAdminProfile
 router.post("/admin/profile", middleware.isAdmin, adminController.postUpdateAdminProfile);
 
 //admin -> update password
-router.put("/admin/update-password", middleware.isAdmin, adminController.putUpdateAdminPassword);
+router.post("/admin/update-password", middleware.isAdmin, adminController.putUpdateAdminPassword);
 
 // //admin -> notifications
 // router.get("/admin/notifications", (req, res) => {
