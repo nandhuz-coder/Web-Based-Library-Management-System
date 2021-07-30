@@ -8,10 +8,10 @@ fixture`My fixture`
 const filtertype = Selector('#book-category');
 const filteroption = filtertype.find('option');
 
-test('Admin Add a Book With empty book title Testing', async t => {
+test('Admin Add a Book Without adding book title Testing', async t => {
         await t
     
-            .setTestSpeed(0.25)
+            .setTestSpeed(0.1)
             .typeText('#username', 'prageeth')
             .typeText('#password', '111111')
             .click('#btn_submit')

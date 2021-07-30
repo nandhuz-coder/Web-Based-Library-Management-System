@@ -7,10 +7,10 @@ fixture`My fixture`
 
 const admin_email = Selector('#admin-edit-email');
 
-test('Update Admin Profile Testing', async t => {
+test('Update Admin Profile by updating email Testing', async t => {
         await t
     
-            .setTestSpeed(0.15)
+            .setTestSpeed(0.1)
             .typeText('#username', 'prageeth')
             .typeText('#password', '111111')
             .click('#btn_submit')
