@@ -32,6 +32,7 @@ exports.getBooks = async (req, res, next) => {
          filter: filter,
          value: value,
          user: req.user,
+         async: true
       })
    } catch (err) {
       console.log(err)
