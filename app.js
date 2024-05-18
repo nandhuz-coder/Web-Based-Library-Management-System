@@ -44,6 +44,7 @@ mongoose
 const store = new MongoStore({
   uri: process.env.DB_URL,
   collection: "sessions",
+  databaseName: process.env.DB_NAME
 });
 
 app.use(
@@ -68,7 +69,7 @@ passport.deserializeUser(User.deserializeUser());
 // configure image file storage
 const fileStorage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "images");
+    cb(null, "public/image/user-profile");
   },
   filename: (req, file, cb) => {
     cb(null, `${uid()}-${file.originalname}`);
@@ -90,7 +91,7 @@ const filefilter = (req, file, cb) => {
 app.use(
   multer({ storage: fileStorage, fileFilter: filefilter }).single("image")
 );
-app.use("/images", express.static(path.join(__dirname, "images")));
+app.use("/images", express.static(path.join(__dirname, "public/image")));
 
 app.use((req, res, next) => {
   res.locals.currentUser = req.user;

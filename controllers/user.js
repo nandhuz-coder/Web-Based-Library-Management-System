@@ -138,8 +138,8 @@ exports.postUploadUserImage = async (req, res, next) => {
     let imageUrl;
     if (req.file) {
       imageUrl = `${uid()}__${req.file.originalname}`;
-      let filename = `images/${imageUrl}`;
-      let previousImagePath = `images/${user.image}`;
+      let filename = `public/image/user-profile/${imageUrl}`;
+      let previousImagePath = `public/image/user-profile/${user.image}`;
 
       const imageExist = fs.existsSync(previousImagePath);
       if (imageExist) {

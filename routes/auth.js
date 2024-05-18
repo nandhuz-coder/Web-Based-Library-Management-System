@@ -37,8 +37,7 @@ router.post("/auth/admin-login", function (req, res, next) {
 });
 
 //admin logout handler
-router.get("/auth/admin-logout", authController.getAdminLogout);
-
+router.post("/auth/admin-logout", authController.getAdminLogout);
 
 // admin sign up handler
 router.get("/auth/admin-signup", authController.getAdminSignUp);
