@@ -49,11 +49,15 @@ const store = new MongoStore({
 
 app.use(
   session({
-    //must be declared before passport session and initialize method
     secret: process.env.SESSION_SECRET,
     saveUninitialized: false,
     resave: false,
     store,
+    cookie: {
+      secure: true,
+      httpOnly: true,
+      sameSite: 'strict'
+    }
   })
 );
 
