@@ -212,7 +212,7 @@ exports.getDeleteBook = async (req, res, next) => {
     const book_id = req.params.book_id;
 
     const book = await Book.findById(book_id);
-    await book.remove();
+    await book.deleteOne();
 
     req.flash("success", `A book named ${book.title} is just deleted!`);
     res.redirect("back");

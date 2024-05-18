@@ -35,8 +35,8 @@ exports.getUserDashboard = async (req, res, next) => {
           req.flash(
             "warning",
             "You are flagged for not returning " +
-              issue.book_info.title +
-              " in time"
+            issue.book_info.title +
+            " in time"
           );
           break;
         }
@@ -333,8 +333,8 @@ exports.postReturnBook = async (req, res, next) => {
 
     // removing issue
     const issue = await Issue.findOne({ "user_id.id": req.user._id });
-    await issue.removeIssue();
-    
+    await issue.deleteOne();
+
     // popping book issue info from user
     req.user.bookIssueInfo.splice(pos, 1);
     await req.user.save();
