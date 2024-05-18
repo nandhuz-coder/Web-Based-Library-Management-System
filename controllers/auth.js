@@ -63,8 +63,10 @@ exports.getUserLoginPage = (req, res, next) => {
 
 exports.getUserLogout = async (req, res, next) => {
   await req.session.destroy();
-  req.logout();
-  res.redirect("/");
+  req.logout(function (err) {
+    if (err) return next(err)
+    res.redirect('/');
+  });
 };
 
 exports.getUserSignUp = (req, res, next) => {

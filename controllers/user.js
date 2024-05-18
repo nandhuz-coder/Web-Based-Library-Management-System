@@ -489,7 +489,7 @@ exports.deleteComment = async (req, res, next) => {
     await book.save();
 
     // removing comment from Comment
-    await Comment.findByIdAndRemove(comment_id);
+    await Comment.findByIdAndDelete(comment_id);
 
     // logging the activity
     const activity = new Activity({
