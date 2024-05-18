@@ -14,9 +14,11 @@ exports.getAdminLoginPage = (req, res, next) => {
   res.render("admin/adminLogin");
 };
 
-exports.getAdminLogout = (req, res, next) => {
-  req.logout();
-  res.redirect("/");
+exports.getAdminLogout = async (req, res, next) => {
+  req.logout(function (err) {
+    if (err) return next(err)
+    res.redirect('/');
+  });
 };
 
 exports.getAdminSignUp = (req, res, next) => {
