@@ -6,21 +6,20 @@ const express = require("express"),
   multer = require("multer"),
   uid = require("uid"),
   path = require("path"),
-  sanitizer = require("express-sanitizer"),
   methodOverride = require("method-override"),
   localStrategy = require("passport-local"),
   MongoStore = require("connect-mongodb-session")(session),
   flash = require("connect-flash"),
+  bodyParser = require("body-parser"),
   User = require("./models/user"),
   userRoutes = require("./routes/users"),
   adminRoutes = require("./routes/admin"),
   bookRoutes = require("./routes/books"),
   authRoutes = require("./routes/auth");
 
-// const Seed = require('./seed');
-
+//const Seed = require('./seed');
 // uncomment below line for first time to seed database;
-// Seed(1000);
+//Seed(1000);
 
 if (process.env.NODE_ENV !== "production") require("dotenv").config();
 
@@ -29,17 +28,13 @@ app.set("view engine", "ejs");
 app.use(methodOverride("_method"));
 app.use(express.static(__dirname + "/public"));
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
-// app.use(bodyParser.urlencoded({ extended: true }));
-app.use(sanitizer());
+app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // db config
 mongoose
   .connect(process.env.DB_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true,
-    useFindAndModify: false,
+    dbName: process.env.DB_NAME,
   })
   .then(() => console.log("MongoDB is connected"))
   .catch((error) => console.log(error));
