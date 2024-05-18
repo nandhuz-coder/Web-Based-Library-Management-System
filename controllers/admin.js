@@ -393,7 +393,6 @@ exports.getAddNewBook = (req, res, next) => {
 exports.postAddNewBook = async (req, res, next) => {
   try {
     const book_info = req.body.book;
-    book_info.description = req.sanitize(book_info.description);
 
     const isDuplicate = await Book.find(book_info);
 
