@@ -26,9 +26,9 @@
 
 ## Install dependencies
 
-Open git bash or command line tools at application file and run following npm command or if you know what to do, just look at `package.json` file :)
+Open git bash or command line tools at application file and run following npm command or if you know what to do, just look at `package.json` file.
 
-`npm install passport passport-local passport-local-mongoose body-parser connect-flash ejs express express-santizer express-session method-override mongoose multer sharp uuid --save`
+`npm install passport passport-local passport-local-mongoose body-parser connect-flash ejs express express-session method-override mongoose multer sharp uuid --save`
 
 ### Install dev dependencies if needed
 
