@@ -26,4 +26,12 @@ const issueSchema = new mongoose.Schema({
   },
 });
 
+issueSchema.methods.removeIssue = async function () {
+  try {
+    await this.deleteOne();
+  } catch (error) {
+    throw error;
+  }
+};
+
 module.exports = mongoose.model("Issue", issueSchema);
