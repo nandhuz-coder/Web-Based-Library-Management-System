@@ -367,7 +367,7 @@ exports.getDeleteUser = async (req, res, next) => {
   try {
     const user_id = req.params.user_id;
     const user = await User.findById(user_id);
-    await user.remove();
+    await user.deleteOne();
 
     let imagePath = `images/${user.image}`;
     if (fs.existsSync(imagePath)) {
