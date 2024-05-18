@@ -1,36 +1,48 @@
 const mongoose = require("mongoose"),
-validator = require('validator');
-passportLocalMongoose = require("passport-local-mongoose");
+  passportLocalMongoose = require("passport-local-mongoose");
 
 const userSchema = new mongoose.Schema({
+  // Authentication fields
+  email: {
+    type: String,
+    required: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  isAdmin: {
+    type: Boolean,
+    default: false,
+  },
+
+  // Personal information
   firstName: {
     type: String,
-    trim: true,
-    required: 'First name can\'t be empty'
+    trim: false,
   },
   lastName: {
     type: String,
-    trim: true,
-    required: 'Last name can\'t be empty'
+    trim: false,
   },
   username: {
     type: String,
     trim: true,
-    required: 'Username name can\'t be empty'
   },
-  email: {
+  gender: {
     type: String,
-    trim: true,
-    index:true, 
-    unique:true,
-    sparse:true,
-    required: 'Email can\'t be empty'
+    required: false,
   },
-  password: {
+  address: {
     type: String,
-    required: 'Password can\'t be empty'
+    required: false,
   },
-  joined: { type: Date, default: Date.now() },
+  image: {
+    type: String,
+    default: "",
+  },
+
+  // Book issue information
   bookIssueInfo: [
     {
       book_info: {
@@ -41,21 +53,20 @@ const userSchema = new mongoose.Schema({
       },
     },
   ],
-  gender: {
-    type : String,
-    required: 'Gender can\'t be empty'
+
+  // Other fields
+  joined: {
+    type: Date,
+    default: Date.now,
   },
-  address: {
-    type: String,
-    required: 'Address can\'t be empty'
+  violationFlag: {
+    type: Boolean,
+    default: false,
   },
-  image: {
-    type: String,
-    default: "",
+  fines: {
+    type: Number,
+    default: 0,
   },
-  violationFlag: { type: Boolean, default: false },
-  fines: { type: Number, default: 0 },
-  isAdmin: { type: Boolean, default: false },
 });
 
 userSchema.plugin(passportLocalMongoose);

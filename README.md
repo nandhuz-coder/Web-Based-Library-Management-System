@@ -1,12 +1,12 @@
-### Following feature will be added in this repo
+# Library-Management-System
+
+## Following feature will be added in this repo
 
 1. Server side caching
 2. Server side form validation
 3. Test coverage
 4. Scalable image upload
 5. Wiring up CI/CD
-
-# Library-Management-System
 
 ## Techonologies used in this application
 
@@ -30,14 +30,14 @@ Open git bash or command line tools at application file and run following npm co
 
 `npm install passport passport-local passport-local-mongoose body-parser connect-flash ejs express express-santizer express-session method-override mongoose multer sharp uuid --save`
 
-#### Install dev dependencies if needed
+### Install dev dependencies if needed
 
-`npm install nodemon faker --save-dev`
+`npm install faker --save-dev`
 
 ## Run the application
 
 - create a `.env` file in app directory
-- add `SESSION_SECRET=<your session secret>`, `ADMIN_SECRET=<your admin secret>` and `DB_URL=<your mongodb url>` into that file.
+- add `SESSION_SECRET=<your session secret>`, `ADMIN_SECRET=<your admin secret>`, `DB_URL=<your mongodb url>` and `DB_NAME=<database_name>` into that file.
 - run `npm run dev`
 - App will open at [http://localhost:3000]
 

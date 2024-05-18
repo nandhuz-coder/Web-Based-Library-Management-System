@@ -25,13 +25,14 @@ exports.getAdminSignUp = (req, res, next) => {
 
 exports.postAdminSignUp = async (req, res, next) => {
   try {
+    console.log(req.body);
     if (req.body.adminCode === process.env.ADMIN_SECRET) {
       const newAdmin = new User({
         username: req.body.username,
         email: req.body.email,
+        password: req.body.password,
         isAdmin: true,
       });
-
       const user = await User.register(newAdmin, req.body.password);
       await passport.authenticate("local")(req, res, () => {
         req.flash(
@@ -45,11 +46,12 @@ exports.postAdminSignUp = async (req, res, next) => {
       return res.redirect("back");
     }
   } catch (err) {
+    console.log(err);
     req.flash(
       "error",
       "Given info matches someone registered as User. Please provide different info for registering as Admin"
     );
-    return res.redirect('signup');
+    return res.redirect("user-signup");
   }
 };
 
@@ -81,19 +83,15 @@ exports.postUserSignUp = async (req, res, next) => {
 
     const user = await User.register(newUser, req.body.password);
     await passport.authenticate("local")(req, res, () => {
-      req.flash(
-        "success",
-        "Hello, " + user.username + " Welcome"
-      );
+      req.flash("success", "Hello, " + user.username + " Welcome");
       res.redirect("/user/1");
     });
   } catch (err) {
-    console.log(err)
+    console.log(err);
     req.flash(
       "error",
       "Given info matches someone registered as User. Please provide different info for registering as User"
     );
-    return res.redirect('/auth/user-signup');
-
+    return res.redirect("/auth/user-signup");
   }
 };
