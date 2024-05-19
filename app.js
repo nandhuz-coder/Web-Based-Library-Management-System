@@ -62,7 +62,6 @@ app.use(
 );
 
 app.use(flash());
-
 app.use(passport.initialize()); //must declared before passport.session()
 app.use(passport.session());
 
