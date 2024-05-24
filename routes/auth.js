@@ -16,24 +16,30 @@ router.get('/', authController.getLandingPage);
 router.get("/auth/admin-login", authController.getAdminLoginPage)
 
 router.post("/auth/admin-login", function (req, res, next) {
-    passport.authenticate('local', function (err, user, info) {
-        if (err) { return next(err); }
-        if (!user) {
-            req.flash(
-                "error",
-                "Please provide Valid Username and password"
-            );
-            return res.redirect('/auth/admin-login');
-        }
-        req.logIn(user, function (err) {
+    try {
+        passport.authenticate('local', function (err, user, info) {
             if (err) { return next(err); }
-            req.flash(
-                "success",
-                "Hello, " + user.username + " Welcome"
-            );
-            res.redirect("/admin");
-        });
-    })(req, res, next);
+            if (!user) {
+                req.flash(
+                    "error",
+                    "Please provide Valid Username and password"
+                );
+                return res.redirect('/auth/admin-login');
+            }
+            req.logIn(user, async function (err) {
+                if (err) { return next(err); }
+                else {
+                    req.flash(
+                        "success",
+                        "Hello, " + user.username + " Welcome"
+                    );
+                    await res.redirect("/admin");
+                }
+            });
+        })(req, res, next);
+    } catch (error) {
+        console.log(error);
+    }
 });
 
 //admin logout handler
