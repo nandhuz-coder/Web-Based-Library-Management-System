@@ -35,6 +35,16 @@
         </li>
 
         <li class="nav-item px-2">
+          <a class="nav-link" href="/admin/books/add" id="add_books"
+            >Stock Out
+            <span class="badge badge-danger">
+              <% if (stock) { %>   <%= stock %> <% } else { %> 0 <% } %>
+            </span>
+            <span class="sr-only">unread messages</span>
+          </a>
+        </li>
+
+        <li class="nav-item px-2">
           <a class="nav-link" href="/books/all/all/1">Browse Books</a>
         </li>
       </ul>

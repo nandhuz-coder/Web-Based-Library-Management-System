@@ -13,7 +13,11 @@ const deleteImage = require("../utils/delete_image");
 
 // GLOBAL_VARIABLES
 const PER_PAGE = 10;
-
+async function out() {
+  let value = (await Book.find().countDocuments({ stock: 0 })) || 0;
+  console.log(value);
+  return await value;
+}
 // admin -> show dashboard working procedure
 /*
     1. Get user, book and activity count
@@ -30,13 +34,14 @@ exports.getDashboard = async (req, res, next) => {
       .sort("-entryTime")
       .skip(PER_PAGE * page - PER_PAGE)
       .limit(PER_PAGE);
-
-    res.render("admin/index", {
+    console.log(out());
+    await res.render("admin/index", {
       users_count: users_count,
       books_count: books_count,
       activities: activities,
       current: page,
       pages: Math.ceil(activity_count / PER_PAGE),
+      stock: await out(),
     });
   } catch (err) {
     console.log(err);
@@ -64,12 +69,13 @@ exports.postDashboard = async (req, res, next) => {
     });
 
     // rendering
-    res.render("admin/index", {
+    await res.render("admin/index", {
       users_count: users_count,
       books_count: books_count,
       activities: activities,
       current: 1,
       pages: 0,
+      stock: await out(),
     });
   } catch (err) {
     console.log(err);
@@ -121,12 +127,13 @@ exports.getAdminBookInventory = async (req, res, next) => {
       .limit(PER_PAGE);
 
     // rendering admin/bookInventory
-    res.render("admin/bookInventory", {
+    await res.render("admin/bookInventory", {
       books: books,
       current: page,
       pages: Math.ceil(books_count / PER_PAGE),
       filter: filter,
       value: value,
+      stock: await out(),
     });
   } catch (err) {
     // console.log(err.messge);
@@ -163,12 +170,13 @@ exports.postAdminBookInventory = async (req, res, next) => {
       .limit(PER_PAGE);
 
     // rendering admin/bookInventory
-    res.render("admin/bookInventory", {
+    await res.render("admin/bookInventory", {
       books: books,
       current: page,
       pages: Math.ceil(books_count / PER_PAGE),
       filter: filter,
       value: value,
+      stock: await out(),
     });
   } catch (err) {
     // console.log(err.message);
@@ -234,10 +242,11 @@ exports.getUserList = async (req, res, next) => {
 
     const users_count = await User.find().countDocuments();
 
-    res.render("admin/users", {
+    await res.render("admin/users", {
       users: users,
       current: page,
       pages: Math.ceil(users_count / PER_PAGE),
+      stock: await out(),
     });
   } catch (err) {
     console.log(err);
@@ -264,10 +273,11 @@ exports.postShowSearchedUser = async (req, res, next) => {
       req.flash("error", "User not found!");
       return res.redirect("back");
     } else {
-      res.render("admin/users", {
+      await res.render("admin/users", {
         users: users,
         current: page,
         pages: 0,
+        stock: await out(),
       });
     }
   } catch (err) {
@@ -318,11 +328,12 @@ exports.getUserProfile = async (req, res, next) => {
       "-entryTime"
     );
 
-    res.render("admin/user", {
+    await res.render("admin/user", {
       user: user,
       issues: issues,
       activities: activities,
       comments: comments,
+      stock: await out(),
     });
   } catch (err) {
     console.log(err);
@@ -338,8 +349,9 @@ exports.getUserAllActivities = async (req, res, next) => {
     const activities = await Activity.find({ "user_id.id": user_id }).sort(
       "-entryTime"
     );
-    res.render("admin/activities", {
+    await res.render("admin/activities", {
       activities: activities,
+      stock: await out(),
     });
   } catch (err) {
     console.log(err);
@@ -353,8 +365,9 @@ exports.postShowActivitiesByCategory = async (req, res, next) => {
     const category = req.body.category;
     const activities = await Activity.find({ category: category });
 
-    res.render("admin/activities", {
+    await res.render("admin/activities", {
       activities: activities,
+      stock: await out(),
     });
   } catch (err) {
     console.log(err);
@@ -386,8 +399,10 @@ exports.getDeleteUser = async (req, res, next) => {
 };
 
 // admin -> add new book
-exports.getAddNewBook = (req, res, next) => {
-  res.render("admin/addBook");
+exports.getAddNewBook = async (req, res, next) => {
+  await res.render("admin/addBook", {
+    stock: await out(),
+  });
 };
 
 exports.postAddNewBook = async (req, res, next) => {
@@ -415,8 +430,10 @@ exports.postAddNewBook = async (req, res, next) => {
 };
 
 // admin -> get profile
-exports.getAdminProfile = (req, res, next) => {
-  res.render("admin/profile");
+exports.getAdminProfile = async (req, res, next) => {
+  await res.render("admin/profile", {
+    stock: await out(),
+  });
 };
 
 // admin -> update profile
