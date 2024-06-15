@@ -7,7 +7,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-6">
-        <h1><i class="fa fa-pencil"></i> Book Inventory</h1>
+        <h1><i class="fa fa-pencil"></i>Request Book Inventory</h1>
       </div>
     </div>
   </div>
@@ -16,15 +16,14 @@
 <!--ACTIONS-->
 <section id="search_bar" class="my-3 py-4 bg-light">
   <div class="container">
-    <form action="#" method="POST">
+    <form action="/admin/bookRequest/all/all/1" method="POST">
       <div class="row">
         <div class="col-md-5 p-1">
           <select name="filter" id="book_select" class="form-control">
             <option selected disabled>Select Option...</option>
             <option name="title">Title</option>
             <option name="author">Author</option>
-            <option name="category">Category</option>
-            <!-- <option  name="ISBN">By ISBN</option> -->
+            <option name="category">UserName</option>
           </select>
         </div>
 
@@ -55,7 +54,7 @@
 <section id="bookInventory" class="mt-5">
   <div class="container">
     <div class="row">
-      <div class="col">
+      <div class="">
         <div class="card">
           <table class="table table-striped">
             <thead class="thead-inverse">

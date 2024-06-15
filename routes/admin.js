@@ -162,7 +162,7 @@ router.get(
 router.post(
   "/admin/bookRequest/:filter/:value/:page",
   middleware.isAdmin,
-  adminController.postAdminStock
+  adminController.postAdminRequest
 );
 
 // //admin -> notifications

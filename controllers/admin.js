@@ -595,15 +595,21 @@ exports.getAdminRequest = async (req, res, next) => {
     const filter = req.params.filter;
     const value = req.params.value;
 
-    // console.log(filter, value);
-    // // constructing search object
+    if (filter != "all") {
+      if (filter == "username") {
+        filter = user_id.filter;
+      } else {
+        filter = book_info.filter;
+      }
+    }
+
     let searchObj = {};
     if (filter !== "all" && value !== "all") {
       // fetch books by search value and filter
       searchObj[filter] = value;
     }
 
-    // get the book counts
+    // get the Request counts
     const Request_count = await Request.find(searchObj).countDocuments();
 
     // fetching Request
@@ -627,6 +633,61 @@ exports.getAdminRequest = async (req, res, next) => {
     });
   } catch (err) {
     // console.log(err.messge);
+    return res.redirect("back");
+  }
+};
+
+// admin -> return book request inventory by search query working procedure
+/*
+    same as getAdminBookInventory method
+*/
+exports.postAdminRequest = async (req, res, next) => {
+  try {
+    let page = req.params.page || 1;
+    let filter = req.body.filter.toLowerCase();
+    const value = req.body.searchName;
+
+    if (value == "") {
+      req.flash(
+        "error",
+        "Search field is empty. Please fill the search field in order to get a result"
+      );
+      return res.redirect("back");
+    }
+    if (filter != "all") {
+      if (filter == "username") {
+        filter = user_id.filter;
+      } else {
+        filter = book_info.filter;
+      }
+    }
+    const searchObj = {};
+    searchObj[filter] = value;
+    // get the Request counts
+    const Request_count = await Request.find(searchObj).countDocuments();
+
+    // fetching Request
+    const request = await Request.find(searchObj)
+      .skip(PER_PAGE * page - PER_PAGE)
+      .limit(PER_PAGE)
+      .populate({
+        path: "book_info.id",
+        select: "stock",
+      })
+      .exec();
+
+    // rendering admin/Request Book Inventory
+    await res.render("admin/request", {
+      books: request,
+      current: page,
+      pages: Math.ceil(Request_count / PER_PAGE),
+      filter: filter,
+      value: value,
+      stock: await out(),
+      request: await reqbook(),
+    });
+  } catch (err) {
+    // console.log(err.message);
     return res.redirect("back");
   }
 };
