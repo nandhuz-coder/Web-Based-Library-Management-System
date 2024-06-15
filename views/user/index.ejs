@@ -21,7 +21,7 @@
     <div class="row">
       <div class="col-md-4">
         <a href="/books/all/all/1" class="btn btn-primary btn-block">
-          <i class="fa fa-plus"></i> Issue Book
+          <i class="fa fa-plus"></i> Request Book
         </a>
       </div>
 
@@ -106,6 +106,16 @@
                   <p>Issue : <%=activity.time.issueDate.toDateString()%></p>
                   <p>Return : <%=activity.time.returnDate.toDateString()%></p>
                 </td>
+              </tr>
+              <% } else if(activity.category == 'Request') { %>
+              <tr>
+                <td>
+                  You have
+                  <span class="table-text">requested</span>
+                  <%=activity.info.title%>
+                </td>
+                <td><%=activity.category%></td>
+                <td><%=activity.entryTime.toDateString()%></td>
               </tr>
               <% } else if(activity.category == 'Comment') { %>
               <tr>
