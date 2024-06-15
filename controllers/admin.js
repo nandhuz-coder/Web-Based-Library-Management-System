@@ -13,9 +13,10 @@ const deleteImage = require("../utils/delete_image");
 
 // GLOBAL_VARIABLES
 const PER_PAGE = 10;
+
 async function out() {
   let value = (await Book.find().countDocuments({ stock: 0 })) || 0;
-  return await value;
+  return value;
 }
 // admin -> show dashboard working procedure
 /*

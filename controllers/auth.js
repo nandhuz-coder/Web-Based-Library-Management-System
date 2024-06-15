@@ -1,5 +1,6 @@
 // importing libraries
-const passport = require("passport");
+const passport = require("passport"),
+  bcrypt = require("bcrypt");
 
 if (process.env.NODE_ENV !== "production") require("dotenv").config();
 
@@ -16,8 +17,8 @@ exports.getAdminLoginPage = (req, res, next) => {
 
 exports.getAdminLogout = async (req, res, next) => {
   req.logout(function (err) {
-    if (err) return next(err)
-    res.redirect('/');
+    if (err) return next(err);
+    res.redirect("/");
   });
 };
 
@@ -27,12 +28,11 @@ exports.getAdminSignUp = (req, res, next) => {
 
 exports.postAdminSignUp = async (req, res, next) => {
   try {
-    console.log(req.body);
     if (req.body.adminCode === process.env.ADMIN_SECRET) {
       const newAdmin = new User({
         username: req.body.username,
         email: req.body.email,
-        password: req.body.password,
+        password: await bcrypt.hash(req.body.password, 10),
         isAdmin: true,
       });
       const user = await User.register(newAdmin, req.body.password);
@@ -64,8 +64,8 @@ exports.getUserLoginPage = (req, res, next) => {
 exports.getUserLogout = async (req, res, next) => {
   await req.session.destroy();
   req.logout(function (err) {
-    if (err) return next(err)
-    res.redirect('/');
+    if (err) return next(err);
+    res.redirect("/");
   });
 };
 
@@ -82,7 +82,7 @@ exports.postUserSignUp = async (req, res, next) => {
       email: req.body.email,
       gender: req.body.gender,
       address: req.body.address,
-      password: req.body.password,
+      password: await bcrypt.hash(req.body.password, 10),
     });
 
     const user = await User.register(newUser, req.body.password);

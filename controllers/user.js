@@ -35,8 +35,8 @@ exports.getUserDashboard = async (req, res, next) => {
           req.flash(
             "warning",
             "You are flagged for not returning " +
-            issue.book_info.title +
-            " in time"
+              issue.book_info.title +
+              " in time"
           );
           break;
         }
