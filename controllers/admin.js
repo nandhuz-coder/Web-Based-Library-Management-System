@@ -581,3 +581,52 @@ exports.postAdminStock = async (req, res, next) => {
     return res.redirect("back");
   }
 };
+
+// admin -> get Request  book inventory working procedure
+/*
+    1. Construct search object
+    2. Fetch books by search object
+    3. Render admin/request
+*/
+
+exports.getAdminRequest = async (req, res, next) => {
+  try {
+    let page = req.params.page || 1;
+    const filter = req.params.filter;
+    const value = req.params.value;
+
+    // console.log(filter, value);
+    // // constructing search object
+    let searchObj = {};
+    if (filter !== "all" && value !== "all") {
+      // fetch books by search value and filter
+      searchObj[filter] = value;
+    }
+
+    // get the book counts
+    const Request_count = await Request.find(searchObj).countDocuments();
+
+    // fetching Request
+    const request = await Request.find(searchObj)
+      .skip(PER_PAGE * page - PER_PAGE)
+      .limit(PER_PAGE)
+      .populate({
+        path: "book_info.id",
+        select: "stock",
+      })
+      .exec();
+
+    await res.render("admin/request", {
+      books: request,
+      current: page,
+      pages: Math.ceil(Request_count / PER_PAGE),
+      filter: filter,
+      value: value,
+      stock: await out(),
+      request: await reqbook(),
+    });
+  } catch (err) {
+    // console.log(err.messge);
+    return res.redirect("back");
+  }
+};

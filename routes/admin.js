@@ -151,6 +151,20 @@ router.post(
   adminController.postAdminStock
 );
 
+//admin book inventory
+router.get(
+  "/admin/bookRequest/:filter/:value/:page",
+  middleware.isAdmin,
+  adminController.getAdminRequest
+);
+
+// admin -> show searched books
+router.post(
+  "/admin/bookRequest/:filter/:value/:page",
+  middleware.isAdmin,
+  adminController.postAdminStock
+);
+
 // //admin -> notifications
 // router.get("/admin/notifications", (req, res) => {
 //    res.send("This route is still under development. will be added in next version");
