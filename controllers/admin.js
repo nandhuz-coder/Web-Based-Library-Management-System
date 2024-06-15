@@ -27,7 +27,7 @@ async function out() {
 exports.getDashboard = async (req, res, next) => {
   var page = req.query.page || 1;
   try {
-    const users_count = (await User.find().countDocuments()) - 1;
+    const users_count = await User.find().countDocuments({ isAdmin: false });
     const books_count = await Book.find().countDocuments();
     const activity_count = await Activity.find().countDocuments();
     const activities = await Activity.find()
@@ -60,7 +60,7 @@ exports.postDashboard = async (req, res, next) => {
 
     // getting user and book count
     const books_count = await Book.find().countDocuments();
-    const users_count = await User.find().countDocuments();
+    const users_count = await User.find().countDocuments({ isAdmin: false });
 
     // fetching activities by search query
     const activities = await Activity.find({
@@ -189,8 +189,9 @@ exports.getUpdateBook = async (req, res, next) => {
     const book_id = req.params.book_id;
     const book = await Book.findById(book_id);
 
-    res.render("admin/book", {
+    await res.render("admin/book", {
       book: book,
+      stock: await out(),
     });
   } catch (err) {
     console.log(err);
@@ -239,7 +240,7 @@ exports.getUserList = async (req, res, next) => {
       .skip(PER_PAGE * page - PER_PAGE)
       .limit(PER_PAGE);
 
-    const users_count = await User.find().countDocuments();
+    const users_count = await User.find().countDocuments({ isAdmin: false });
 
     await res.render("admin/users", {
       users: users,
