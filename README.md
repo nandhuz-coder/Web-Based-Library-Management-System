@@ -16,6 +16,7 @@
 2. CSS3
 3. BOOTSTRAP 4
 4. jQuery
+5. EJS 2.7.4(frontend dev can update if needed).
 
 ### Back-end
 
@@ -36,9 +37,9 @@ or
 
 ## Run the application
 
-- create a `.env` file in app directory or
+- create a `.env` file in app directory
+- add `SESSION_SECRET=<your session secret>`, `ADMIN_SECRET=<your admin secret>`, `DB_URL=<your mongodb url>` and `DB_NAME=<database_name>` into that file. or
 - rename `.env.example` to `.env`
-- add `SESSION_SECRET=<your session secret>`, `ADMIN_SECRET=<your admin secret>`, `DB_URL=<your mongodb url>` and `DB_NAME=<database_name>` into that file.
 - run `npm run dev`
 - App will open at [http://localhost:3000]
 
