@@ -691,3 +691,81 @@ exports.postAdminRequest = async (req, res, next) => {
     return res.redirect("back");
   }
 };
+//admin -> delete a book
+exports.getAcceptRequest = async (req, res, next) => {
+  const request = await Request.findById(req.params.id);
+  const user = await User.findById(request.user_id.id);
+  const book = await Book.findById(request.book_info.id);
+
+  if (user.violationFlag) {
+    req.flash(
+      "error",
+      "user are flagged for violating rules/delay on returning books/paying fines. Untill the flag is lifted, You can't issue any books"
+    );
+    return res.redirect("back");
+  }
+
+  if (user.bookIssueInfo.length >= 5) {
+    req.flash("warning", "You can't issue more than 5 books at a time");
+    return res.redirect("back");
+  }
+
+  if (book.stock <= 0) {
+    req.flash("warning", "Book is not in stock");
+    return res.redirect("back");
+  }
+
+  try {
+    // registering issue
+    book.stock -= 1;
+    const issue = new Issue({
+      book_info: {
+        id: book._id,
+        title: book.title,
+        author: book.author,
+        ISBN: book.ISBN,
+        category: book.category,
+        stock: book.stock,
+      },
+      user_id: {
+        id: user._id,
+        username: user.username,
+      },
+    });
+
+    // putting issue record on individual user document
+    await user.bookIssueInfo.push(book._id);
+
+    //Clearing request
+    await Request.findByIdAndDelete(req.params.id);
+    user.bookRequestInfo.pull({ _id: request.book_info.id });
+    // logging the activity
+    const activity = new Activity({
+      info: {
+        id: book._id,
+        title: book.title,
+      },
+      category: "Issue",
+      time: {
+        id: issue._id,
+        issueDate: issue.book_info.issueDate,
+        returnDate: issue.book_info.returnDate,
+      },
+      user_id: {
+        id: user._id,
+        username: user.username,
+      },
+    });
+
+    // await ensure to synchronously save all database alteration
+    await issue.save();
+    await user.save();
+    await book.save();
+    await activity.save();
+
+    res.redirect("/admin/bookRequest/all/all/1");
+  } catch (err) {
+    console.log(err);
+    return res.redirect("back");
+  }
+};

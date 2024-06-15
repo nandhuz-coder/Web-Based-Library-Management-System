@@ -48,7 +48,7 @@ const userSchema = new mongoose.Schema({
       book_info: {
         id: {
           type: mongoose.Schema.Types.ObjectId,
-          ref: "Issue",
+          ref: "Request",
         },
       },
     },
