@@ -15,7 +15,6 @@ const deleteImage = require("../utils/delete_image");
 const PER_PAGE = 10;
 async function out() {
   let value = (await Book.find().countDocuments({ stock: 0 })) || 0;
-  console.log(value);
   return await value;
 }
 // admin -> show dashboard working procedure
@@ -34,7 +33,6 @@ exports.getDashboard = async (req, res, next) => {
       .sort("-entryTime")
       .skip(PER_PAGE * page - PER_PAGE)
       .limit(PER_PAGE);
-    console.log(out());
     await res.render("admin/index", {
       users_count: users_count,
       books_count: books_count,
@@ -469,5 +467,95 @@ exports.putUpdateAdminPassword = async (req, res, next) => {
   } catch (err) {
     console.log(err);
     res.redirect("back");
+  }
+};
+
+// admin -> get stock out book inventory working procedure
+/*
+    1. Construct search object
+    2. Fetch books by search object
+    3. Render admin/stock
+*/
+exports.getAdminStock = async (req, res, next) => {
+  try {
+    let page = req.params.page || 1;
+    const filter = req.params.filter;
+    const value = req.params.value;
+
+    // console.log(filter, value);
+    // // constructing search object
+    let searchObj = {
+      stock: 0,
+    };
+    if (filter !== "all" && value !== "all") {
+      // fetch books by search value and filter
+      searchObj[filter] = value;
+    }
+
+    // get the book counts
+    const books_count = await Book.find(searchObj).countDocuments();
+
+    // fetching books
+    const books = await Book.find(searchObj)
+      .skip(PER_PAGE * page - PER_PAGE)
+      .limit(PER_PAGE);
+
+    // rendering admin/bookInventory
+    await res.render("admin/stock", {
+      books: books,
+      current: page,
+      pages: Math.ceil(books_count / PER_PAGE),
+      filter: filter,
+      value: value,
+      stock: await out(),
+    });
+  } catch (err) {
+    // console.log(err.messge);
+    return res.redirect("back");
+  }
+};
+
+// admin -> return book stock inventory by search query working procedure
+/*
+    same as getAdminBookInventory method
+*/
+exports.postAdminStock = async (req, res, next) => {
+  try {
+    let page = req.params.page || 1;
+    const filter = req.body.filter.toLowerCase();
+    const value = req.body.searchName;
+
+    if (value == "") {
+      req.flash(
+        "error",
+        "Search field is empty. Please fill the search field in order to get a result"
+      );
+      return res.redirect("back");
+    }
+    const searchObj = {
+      stock: 0,
+    };
+    searchObj[filter] = value;
+
+    // get the books count
+    const books_count = await Book.find(searchObj).countDocuments();
+
+    // fetch the books by search query
+    const books = await Book.find(searchObj)
+      .skip(PER_PAGE * page - PER_PAGE)
+      .limit(PER_PAGE);
+
+    // rendering admin/bookInventory
+    await res.render("admin/stock", {
+      books: books,
+      current: page,
+      pages: Math.ceil(books_count / PER_PAGE),
+      filter: filter,
+      value: value,
+      stock: await out(),
+    });
+  } catch (err) {
+    // console.log(err.message);
+    return res.redirect("back");
   }
 };

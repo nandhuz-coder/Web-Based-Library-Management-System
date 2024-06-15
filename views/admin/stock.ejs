@@ -16,7 +16,7 @@
 <!--ACTIONS-->
 <section id="search_bar" class="my-3 py-4 bg-light">
   <div class="container">
-    <form action="/admin/bookInventory/all/all/1" method="POST">
+    <form action="/admin/bookStock/all/all/1" method="POST">
       <div class="row">
         <div class="col-md-5 p-1">
           <select name="filter" id="book_select" class="form-control">
@@ -106,7 +106,7 @@
               <% } else { %>
               <li class="page-item">
                 <a
-                  href="/admin/bookInventory/<%=filter%>/<%=value%>/1"
+                  href="/admin/bookStock/<%=filter%>/<%=value%>/1"
                   class="page-link"
                   >First</a
                 >
@@ -123,7 +123,7 @@
               <li class="page-item">
                 <a
                   class="page-link"
-                  href="/admin/bookInventory/<%=filter%>/<%=value%>/<%=i%>"
+                  href="/admin/bookStock/<%=filter%>/<%=value%>/<%=i%>"
                 >
                   <%=i%></a
                 >
@@ -135,7 +135,7 @@
               <% } else { %>
               <li class="page-item">
                 <a
-                  href="/admin/bookInventory/<%=filter%>/<%=value%>/<%=pages%>"
+                  href="/admin/bookStock/<%=filter%>/<%=value%>/<%=pages%>"
                   class="page-link"
                   >Last</a
                 >
