@@ -141,7 +141,7 @@
             >
           </p>
 
-          <% if (currentUser && books[i].stock > 0) { var match = false; if
+          <% if (currentUser && books[i].stock >= 0) { var match = false; if
           (Array.isArray(user.bookIssueInfo)) {
           user.bookIssueInfo.forEach(book_info => { if
           (book_info._id.equals(books[i]._id)) { match = true; %>
