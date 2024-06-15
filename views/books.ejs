@@ -126,24 +126,25 @@
       <% for(var i=0; i < books.length; i++) { %>
       <div class="card col-md-3 text-center" style="margin-bottom: 10px">
         <div class="card-body">
-          <h5 class="card-title"><%=books[i].title%></h5>
+          <h5 class="card-title"><%= books[i].title %></h5>
           <p>
-            <small style="color: red">Author : <%=books[i].author%></small>
+            <small style="color: red">Author: <%= books[i].author %></small>
           </p>
           <p>
             <small style="color: rgb(20, 168, 40)"
-              >Category : <%=books[i].category%></small
+              >Category: <%= books[i].category %></small
             >
           </p>
           <p>
             <small style="color: rgb(52, 33, 219)"
-              >In stock : <%=books[i].stock%></small
+              >In stock: <%= books[i].stock %></small
             >
           </p>
 
-          <% if(currentUser && books[i].stock> 0) { var match = false%> <%
-          user.bookIssueInfo.forEach(book_info=> { %> <%
-          if(book_info._id.equals(books[i]._id)) { %>
+          <% if (currentUser && books[i].stock > 0) { var match = false; if
+          (Array.isArray(user.bookIssueInfo)) {
+          user.bookIssueInfo.forEach(book_info => { if
+          (book_info._id.equals(books[i]._id)) { match = true; %>
           <a
             href="#"
             class="btn btn-xs btn-warning disabled"
@@ -157,9 +158,20 @@
             role="button"
             >Return/Renew</a
           >
-          <% match=true; } %> <% }) %> <% if(!match) {%>
+          <% } }); } if (!match) { var match2 = false; if
+          (Array.isArray(user.bookRequestInfo)) {
+          user.bookRequestInfo.forEach(book_info => { if
+          (book_info._id.equals(books[i]._id)) { match2 = true; %>
+          <a
+            href="#"
+            class="btn btn-xs btn-warning disabled"
+            role="button"
+            aria-disabled="true"
+            >Requested!</a
+          >
+          <% } }); } if (!match2) { %>
           <form
-            action="/books/<%=books[i]._id%>/request/<%=currentUser._id%>"
+            action="/books/<%= books[i]._id %>/request/<%= currentUser._id %>"
             method="POST"
             class="d-inline"
           >
@@ -169,9 +181,10 @@
               value="request"
             />
           </form>
-          <% } %> <% } %>
+          <% } } } %>
+
           <a
-            href="/books/details/<%=books[i]._id%>"
+            href="/books/details/<%= books[i]._id %>"
             class="btn btn-sm btn-success"
             >Details</a
           >
