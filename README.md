@@ -19,16 +19,16 @@
 
 ### Back-end
 
-1. MongoDB
+1. Node.js
 2. Express.js
-3. Node.js
+3. MongoDB
 4. Passport.js
 
 ## Install dependencies
 
-Open git bash or command line tools at application file and run following npm command or if you know what to do, just look at `package.json` file.
-
-`npm install passport passport-local passport-local-mongoose body-parser connect-flash ejs express express-session method-override mongoose multer sharp uuid --save`
+Open git bash or command line tools at application file and run following npm command `npm install` if you have `package.json` file.
+or
+`npm install passport passport-local passport-local-mongoose body-parser connect-flash ejs express express-session method-override mongoose multer sharp uuid bcrypt --save`
 
 ### Install dev dependencies if needed
 
@@ -36,7 +36,8 @@ Open git bash or command line tools at application file and run following npm co
 
 ## Run the application
 
-- create a `.env` file in app directory
+- create a `.env` file in app directory or
+- rename `.env.example` to `.env`
 - add `SESSION_SECRET=<your session secret>`, `ADMIN_SECRET=<your admin secret>`, `DB_URL=<your mongodb url>` and `DB_NAME=<database_name>` into that file.
 - run `npm run dev`
 - App will open at [http://localhost:3000]
@@ -58,6 +59,7 @@ Whole app is divided into three modules.
 - Add books
 - Update books
 - Delete books
+- Out of stock books
 - Search books by category, title, author, ISBN
 - Find users by firstname, lastname, email and username
 - Delete user acount
