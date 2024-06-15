@@ -44,7 +44,7 @@ mongoose
 const store = new MongoStore({
   uri: process.env.DB_URL,
   collection: "sessions",
-  databaseName: process.env.DB_NAME
+  databaseName: process.env.DB_NAME,
 });
 
 app.use(
@@ -52,7 +52,7 @@ app.use(
     secret: process.env.SESSION_SECRET,
     saveUninitialized: false,
     resave: false,
-    store,
+    store: store,
   })
 );
 

@@ -25,7 +25,7 @@ router.put("/user/1/update-profile", middleware.isLoggedIn, userController.putUp
 router.get("/user/1/notification", middleware.isLoggedIn, userController.getNotification);
 
 //user -> issue a book
-router.post("/books/:book_id/issue/:user_id", middleware.isLoggedIn, userController.postIssueBook);
+router.post("/books/:book_id/request/:user_id", middleware.isLoggedIn, userController.postRequestbook);
 
 //user -> show return-renew page
 router.get("/books/return-renew", middleware.isLoggedIn, userController.getShowRenewReturn);

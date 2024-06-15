@@ -8,8 +8,8 @@ const User = require("../models/user"),
   Activity = require("../models/activity"),
   Book = require("../models/book"),
   Issue = require("../models/issue"),
-  Comment = require("../models/comment");
-
+  Comment = require("../models/comment"),
+  Request = require("../models/request");
 // importing utilities
 const deleteImage = require("../utils/delete_image");
 
@@ -534,5 +534,77 @@ exports.deleteUserAccount = async (req, res, next) => {
   } catch (err) {
     console.log(err);
     res.redirect("back");
+  }
+};
+
+//user -> request a book
+exports.postRequestbook = async (req, res, next) => {
+  if (req.user.violationFlag) {
+    req.flash(
+      "error",
+      "You are flagged for violating rules/delay on returning books/paying fines. Untill the flag is lifted, You can't issue any books"
+    );
+    return res.redirect("back");
+  }
+
+  if (req.user.bookIssueInfo.length >= 5) {
+    req.flash("warning", "You can't issue more than 5 books at a time");
+    return res.redirect("back");
+  }
+
+  try {
+    const book = await Book.findById(req.params.book_id);
+    const user = await User.findById(req.params.user_id);
+
+    if (book.stock == 0) {
+      req.flash("warning", "No stock available at this moment.");
+      return res.redirect("back");
+    }
+
+    // registering request
+
+    const request = new Request({
+      book_info: {
+        id: book._id,
+        title: book.title,
+        author: book.author,
+        ISBN: book.ISBN,
+        category: book.category,
+      },
+      user_id: {
+        id: user._id,
+        username: user.username,
+      },
+    });
+
+    // putting request record on individual user document
+    user.bookRequestInfo.push(book._id);
+
+    // logging the activity
+    const activity = new Activity({
+      info: {
+        id: book._id,
+        title: book.title,
+      },
+      category: "Request",
+      time: {
+        id: Request._id,
+      },
+      user_id: {
+        id: user._id,
+        username: user.username,
+      },
+    });
+
+    // await ensure to synchronously save all database alteration
+    await request.save();
+    await user.save();
+    await book.save();
+    await activity.save();
+
+    res.redirect("/books/all/all/1");
+  } catch (err) {
+    console.log(err);
+    return res.redirect("back");
   }
 };

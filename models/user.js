@@ -42,6 +42,18 @@ const userSchema = new mongoose.Schema({
     default: "",
   },
 
+  // Book Request information
+  bookRequestInfo: [
+    {
+      book_info: {
+        id: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Issue",
+        },
+      },
+    },
+  ],
+
   // Book issue information
   bookIssueInfo: [
     {
