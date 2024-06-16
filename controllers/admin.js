@@ -691,7 +691,22 @@ exports.postAdminRequest = async (req, res, next) => {
     return res.redirect("back");
   }
 };
+
 //admin -> delete a book
+/*  
+    ? work Flow
+    1. fetch request doc by params.id
+    2. fetch user by request.user_id
+    3. fetch book by request.book_info
+    4. check user violation
+    5. check user book issued
+    6. check book stock
+    7. registering book issue
+    8. clearing request
+    9. logging activity
+    10 redirect('/admin/bookRequest/all/all/1)
+ */
+
 exports.getAcceptRequest = async (req, res, next) => {
   const request = await Request.findById(req.params.id);
   const user = await User.findById(request.user_id.id);
@@ -739,6 +754,7 @@ exports.getAcceptRequest = async (req, res, next) => {
     //Clearing request
     await Request.findByIdAndDelete(req.params.id);
     user.bookRequestInfo.pull({ _id: request.book_info.id });
+
     // logging the activity
     const activity = new Activity({
       info: {

@@ -171,6 +171,14 @@ router.get(
   middleware.isAdmin,
   adminController.getAcceptRequest
 );
+
+// admin -> decline request books
+router.get(
+  "/admin/book/decline/:id",
+  middleware.isAdmin,
+  adminController.getAcceptRequest
+);
+
 // //admin -> notifications
 // router.get("/admin/notifications", (req, res) => {
 //    res.send("This route is still under development. will be added in next version");
