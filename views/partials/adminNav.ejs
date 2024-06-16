@@ -38,7 +38,8 @@
           <a class="nav-link" href="/admin/bookStock/all/all/1" id="add_books"
             >Stock Out
             <span class="badge badge-danger">
-              <% if (stock) { %> <%= stock %> <% } else { %> 0 <% } %>
+              <% if (global.stock) { %> <%= global.stock %> <% } else { %> 0 <%
+              } %>
             </span>
             <span class="sr-only">unread messages</span>
           </a>
@@ -48,7 +49,8 @@
           <a class="nav-link" href="/admin/bookRequest/all/all/1" id="add_books"
             >Request
             <span class="badge badge-success">
-              <% if (request) { %> <%= request %> <% } else { %> 0 <% } %>
+              <% if (global.reqbook) { %> <%= global.reqbook %> <% } else { %> 0
+              <% } %>
             </span>
             <span class="sr-only">unread messages</span>
           </a>

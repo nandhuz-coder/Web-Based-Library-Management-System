@@ -15,13 +15,13 @@ const deleteImage = require("../utils/delete_image");
 // GLOBAL_VARIABLES
 const PER_PAGE = 10;
 
-async function out() {
-  let value = (await Book.find().countDocuments({ stock: 0 })) || 0;
-  return value;
-}
-
-async function reqbook() {
-  let value = (await Request.find().countDocuments()) || 0;
+async function global() {
+  let value1 = (await Request.find().countDocuments()) || 0;
+  let value2 = (await Book.find().countDocuments({ stock: 0 })) || 0;
+  let value = {
+    stock: value2,
+    reqbook: value1,
+  };
   return value;
 }
 // admin -> show dashboard working procedure
@@ -41,15 +41,14 @@ exports.getDashboard = async (req, res, next) => {
       .skip(PER_PAGE * page - PER_PAGE)
       .limit(PER_PAGE)
       .exec();
-
+    console.log(await global());
     await res.render("admin/index", {
       users_count: users_count,
       books_count: books_count,
       activities: activities,
       current: page,
       pages: Math.ceil(activity_count / PER_PAGE),
-      stock: await out(),
-      request: await reqbook(),
+      global: await global(),
     });
   } catch (err) {
     console.log(err);
@@ -83,8 +82,7 @@ exports.postDashboard = async (req, res, next) => {
       activities: activities,
       current: 1,
       pages: 0,
-      stock: await out(),
-      request: await reqbook(),
+      global: await global(),
     });
   } catch (err) {
     console.log(err);
@@ -141,8 +139,7 @@ exports.getAdminBookInventory = async (req, res, next) => {
       pages: Math.ceil(books_count / PER_PAGE),
       filter: filter,
       value: value,
-      stock: await out(),
-      request: await reqbook(),
+      global: await global(),
     });
   } catch (err) {
     // console.log(err.messge);
@@ -185,8 +182,7 @@ exports.postAdminBookInventory = async (req, res, next) => {
       pages: Math.ceil(books_count / PER_PAGE),
       filter: filter,
       value: value,
-      stock: await out(),
-      request: await reqbook(),
+      global: await global(),
     });
   } catch (err) {
     // console.log(err.message);
@@ -202,8 +198,7 @@ exports.getUpdateBook = async (req, res, next) => {
 
     await res.render("admin/book", {
       book: book,
-      stock: await out(),
-      request: await reqbook(),
+      global: await global(),
     });
   } catch (err) {
     console.log(err);
@@ -258,8 +253,7 @@ exports.getUserList = async (req, res, next) => {
       users: users,
       current: page,
       pages: Math.ceil(users_count / PER_PAGE),
-      stock: await out(),
-      request: await reqbook(),
+      global: await global(),
     });
   } catch (err) {
     console.log(err);
@@ -290,8 +284,7 @@ exports.postShowSearchedUser = async (req, res, next) => {
         users: users,
         current: page,
         pages: 0,
-        stock: await out(),
-        request: await reqbook(),
+        global: await global(),
       });
     }
   } catch (err) {
@@ -347,8 +340,7 @@ exports.getUserProfile = async (req, res, next) => {
       issues: issues,
       activities: activities,
       comments: comments,
-      stock: await out(),
-      request: await reqbook(),
+      global: await global(),
     });
   } catch (err) {
     console.log(err);
@@ -366,8 +358,7 @@ exports.getUserAllActivities = async (req, res, next) => {
     );
     await res.render("admin/activities", {
       activities: activities,
-      stock: await out(),
-      request: await reqbook(),
+      global: await global(),
     });
   } catch (err) {
     console.log(err);
@@ -383,8 +374,7 @@ exports.postShowActivitiesByCategory = async (req, res, next) => {
 
     await res.render("admin/activities", {
       activities: activities,
-      stock: await out(),
-      request: await reqbook(),
+      global: await global(),
     });
   } catch (err) {
     console.log(err);
@@ -418,8 +408,7 @@ exports.getDeleteUser = async (req, res, next) => {
 // admin -> add new book
 exports.getAddNewBook = async (req, res, next) => {
   await res.render("admin/addBook", {
-    stock: await out(),
-    request: await reqbook(),
+    global: await global(),
   });
 };
 
@@ -450,8 +439,7 @@ exports.postAddNewBook = async (req, res, next) => {
 // admin -> get profile
 exports.getAdminProfile = async (req, res, next) => {
   await res.render("admin/profile", {
-    stock: await out(),
-    request: await reqbook(),
+    global: await global(),
   });
 };
 
@@ -528,8 +516,7 @@ exports.getAdminStock = async (req, res, next) => {
       pages: Math.ceil(books_count / PER_PAGE),
       filter: filter,
       value: value,
-      stock: await out(),
-      request: await reqbook(),
+      global: await global(),
     });
   } catch (err) {
     // console.log(err.messge);
@@ -574,8 +561,7 @@ exports.postAdminStock = async (req, res, next) => {
       pages: Math.ceil(books_count / PER_PAGE),
       filter: filter,
       value: value,
-      stock: await out(),
-      request: await reqbook(),
+      global: await global(),
     });
   } catch (err) {
     // console.log(err.message);
@@ -629,8 +615,7 @@ exports.getAdminRequest = async (req, res, next) => {
       pages: Math.ceil(Request_count / PER_PAGE),
       filter: filter,
       value: value,
-      stock: await out(),
-      request: await reqbook(),
+      global: await global(),
     });
   } catch (err) {
     // console.log(err.messge);
@@ -684,8 +669,7 @@ exports.postAdminRequest = async (req, res, next) => {
       pages: Math.ceil(Request_count / PER_PAGE),
       filter: filter,
       value: value,
-      stock: await out(),
-      request: await reqbook(),
+      global: await global(),
     });
   } catch (err) {
     // console.log(err.message);
