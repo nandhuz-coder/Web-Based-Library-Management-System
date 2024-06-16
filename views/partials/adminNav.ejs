@@ -57,6 +57,17 @@
         </li>
 
         <li class="nav-item px-2">
+          <a class="nav-link" href="/admin/bookReturn/all/all/1" id="add_books"
+            >Return books
+            <span class="badge badge-danger">
+              <% if (global.return) { %> <%= global.return %> <% } else { %> 0 <%
+              } %>
+            </span>
+            <span class="sr-only">unread messages</span>
+          </a>
+        </li>
+
+        <li class="nav-item px-2">
           <a class="nav-link" href="/books/all/all/1">Browse Books</a>
         </li>
       </ul>

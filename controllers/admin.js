@@ -8,7 +8,7 @@ const Activity = require("../models/activity");
 const Issue = require("../models/issue");
 const Comment = require("../models/comment");
 const Request = require("../models/request");
-
+const Return = require("../models/return");
 // importing utilities
 const deleteImage = require("../utils/delete_image");
 
@@ -18,9 +18,11 @@ const PER_PAGE = 10;
 async function global() {
   let value1 = (await Request.find().countDocuments()) || 0;
   let value2 = (await Book.find().countDocuments({ stock: 0 })) || 0;
+  let value3 = (await Return.find().countDocuments()) || 0;
   let value = {
     reqbook: value1,
     stock: value2,
+    return: value3,
   };
   return value;
 }
@@ -41,7 +43,6 @@ exports.getDashboard = async (req, res, next) => {
       .skip(PER_PAGE * page - PER_PAGE)
       .limit(PER_PAGE)
       .exec();
-    console.log(await global());
     await res.render("admin/index", {
       users_count: users_count,
       books_count: books_count,
