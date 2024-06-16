@@ -104,13 +104,15 @@
                 <td><%=activities[i].entryTime.toDateString()%></td>
                 <% } else if(activities[i].category =="Decline") { %>
                 <td>
+                  Admin declined
+                  <span style="color: red"><%=activities[i].info.title%></span>
+                  request of
                   <a
                     href="/admin/users/profile/<%=activities[i].user_id.id%>"
                     title="Visit profile"
                   >
                     <%=activities[i].user_id.username || 'This user'%>
                   </a>
-                  declined <%=activities[i].info.title%>
                 </td>
                 <td>Declined</td>
                 <td><%=activities[i].entryTime.toDateString()%></td>

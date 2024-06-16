@@ -35,7 +35,7 @@ const activitySchema = new mongoose.Schema({
 
   entryTime: {
     type: Date,
-    default: Date.now(),
+    default: Date.now,
   },
 });
 
