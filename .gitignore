@@ -3,4 +3,4 @@ images
 .env
 TODO
 public/image/user-profile
-dev/*.js
+dev/todo.js
