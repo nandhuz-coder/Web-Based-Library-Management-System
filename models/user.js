@@ -66,6 +66,18 @@ const userSchema = new mongoose.Schema({
     },
   ],
 
+  // Book Return information
+  bookReturnInfo: [
+    {
+      book_info: {
+        id: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Return",
+        },
+      },
+    },
+  ],
+
   // Other fields
   joined: {
     type: Date,

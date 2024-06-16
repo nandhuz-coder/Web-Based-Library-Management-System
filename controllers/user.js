@@ -9,7 +9,9 @@ const User = require("../models/user"),
   Book = require("../models/book"),
   Issue = require("../models/issue"),
   Comment = require("../models/comment"),
-  Request = require("../models/request");
+  Request = require("../models/request"),
+  Return = require("../models/return");
+
 // importing utilities
 const deleteImage = require("../utils/delete_image");
 
@@ -252,40 +254,43 @@ exports.postRenewBook = async (req, res, next) => {
 */
 exports.postReturnBook = async (req, res, next) => {
   try {
-    // finding the position
-    const book_id = req.params.book_id;
-    const pos = req.user.bookIssueInfo.indexOf(req.params.book_id);
-
-    // fetching book from db and increament
-    const book = await Book.findById(book_id);
-    book.stock += 1;
-    await book.save();
-
-    // removing issue
-    const issue = await Issue.findOne({ "user_id.id": req.user._id });
-    await issue.deleteOne();
-
-    // popping book issue info from user
-    req.user.bookIssueInfo.splice(pos, 1);
-    await req.user.save();
-
-    // logging the activity
+    // finding user & book.
+    const user = await User.findById(req.user._id);
+    const book = await Book.findById(req.params.id);
+    const issue = await Issue.findOne({
+      "book_info.id": req.params.id,
+      "user_id.id": req.user._id,
+    });
+    const Book_return = new Return({
+      user_id: {
+        id: req.user._id,
+        username: req.user.username,
+      },
+      book_info: {
+        id: book._id,
+        title: book.title,
+        author: book.author,
+        category: book.category,
+      },
+      issue_id: {
+        id: issue._id,
+      },
+    });
+    await user.bookReturnInfo.push(Book_return._id);
     const activity = new Activity({
       info: {
-        id: issue.book_info.id,
-        title: issue.book_info.title,
+        id: Book_return.book_info.id,
+        title: Book_return.book_info.title,
       },
-      category: "Return",
-      time: {
-        id: issue._id,
-        issueDate: issue.book_info.issueDate,
-        returnDate: issue.book_info.returnDate,
-      },
+      category: "User-Return",
       user_id: {
         id: req.user._id,
         username: req.user.username,
       },
     });
+
+    await Book_return.save();
+    await user.save();
     await activity.save();
 
     // redirecting

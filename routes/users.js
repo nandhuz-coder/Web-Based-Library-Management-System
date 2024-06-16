@@ -71,9 +71,8 @@ router.post(
 );
 
 // user -> return book
-
 router.post(
-  "/books/:book_id/return",
+  "/books/return/:id",
   middleware.isLoggedIn,
   userController.postReturnBook
 );
