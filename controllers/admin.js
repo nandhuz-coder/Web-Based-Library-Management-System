@@ -19,8 +19,8 @@ async function global() {
   let value1 = (await Request.find().countDocuments()) || 0;
   let value2 = (await Book.find().countDocuments({ stock: 0 })) || 0;
   let value = {
-    stock: value2,
     reqbook: value1,
+    stock: value2,
   };
   return value;
 }

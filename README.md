@@ -69,6 +69,7 @@ Whole app is divided into three modules.
 - Update admin profile and password
 - Add new admin
 - Delete currently logged in admin profile
+- Apporval and Reject request books
 
 ### User module functionalities
 
@@ -76,7 +77,7 @@ Whole app is divided into three modules.
 - Login
 - Logout
 - Track own activities
-- Issue books
+- Request books
 - Renew books
 - Return books
 - Browse books showcase
