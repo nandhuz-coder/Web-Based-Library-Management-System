@@ -86,7 +86,9 @@
                 <td>
                   You have
                   <span class="table-text">issued</span>
-                  <%=activity.info.title%>
+                  <span style="color: rgb(41, 0, 135)" class="table-text"
+                    ><%=activity.info.title%></span
+                  >
                 </td>
                 <td><%=activity.category%></td>
                 <td>
@@ -99,7 +101,9 @@
                 <td>
                   You have
                   <span class="table-text">returned</span>
-                  <%=activity.info.title%>
+                  <span style="color: rgb(41, 0, 135)" class="table-text"
+                    ><%=activity.info.title%></span
+                  >
                 </td>
                 <td><%=activity.category%></td>
                 <td>
@@ -112,7 +116,21 @@
                 <td>
                   You have
                   <span class="table-text">requested</span>
-                  <%=activity.info.title%>
+                  <span style="color: rgb(41, 0, 135)" class="table-text"
+                    ><%=activity.info.title%></span
+                  >
+                </td>
+                <td><%=activity.category%></td>
+                <td><%=activity.entryTime.toDateString()%></td>
+              </tr>
+              <% } else if(activity.category == 'Decline') { %>
+              <tr>
+                <td>
+                  Admin have
+                  <span class="table-text">declined</span> request of your
+                  <span style="color: rgb(41, 0, 135)" class="table-text"
+                    ><%=activity.info.title%></span
+                  >
                 </td>
                 <td><%=activity.category%></td>
                 <td><%=activity.entryTime.toDateString()%></td>
@@ -121,7 +139,9 @@
               <tr>
                 <td>
                   You <span class="table-text">commented</span> on
-                  <%=activity.info.title%>
+                  <span style="color: rgb(41, 0, 135)" class="table-text"
+                    ><%=activity.info.title%></span
+                  >
                 </td>
                 <td><%= activity.category %></td>
                 <td><%=activity.entryTime.toDateString()%></td>
@@ -154,7 +174,9 @@
                 <td>
                   You have
                   <span class="table-text">renewed</span>
-                  <%=activity.info.title%>
+                  <span style="color: rgb(41, 0, 135)" class="table-text"
+                    ><%=activity.info.title%></span
+                  >
                 </td>
                 <td><%=activity.category%></td>
                 <td>
@@ -212,7 +234,9 @@
                 <td>
                   You have
                   <span class="table-text">updated your comment</span> on
-                  <%=activity.info.title%>
+                  <span style="color: rgb(41, 0, 135)" class="table-text"
+                    ><%=activity.info.title%></span
+                  >
                 </td>
                 <td><%= activity.category %></td>
                 <td><%=activity.entryTime.toDateString()%></td>
@@ -230,7 +254,9 @@
                 <td>
                   You have
                   <span class="table-text">deleted your comment</span> on
-                  <%=activity.info.title%>
+                  <span style="color: rgb(41, 0, 135)" class="table-text"
+                    ><%=activity.info.title%></span
+                  >
                 </td>
                 <td><%= activity.category %></td>
                 <td><%=activity.entryTime.toDateString()%></td>
