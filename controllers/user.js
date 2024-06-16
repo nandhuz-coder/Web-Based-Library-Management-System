@@ -276,7 +276,9 @@ exports.postReturnBook = async (req, res, next) => {
         id: issue._id,
       },
     });
-    await user.bookReturnInfo.push(Book_return._id);
+
+    await user.bookReturnInfo.push(book._id);
+    issue.book_info.isReturn = true;
     const activity = new Activity({
       info: {
         id: Book_return.book_info.id,
@@ -291,6 +293,7 @@ exports.postReturnBook = async (req, res, next) => {
 
     await Book_return.save();
     await user.save();
+    await issue.save();
     await activity.save();
 
     // redirecting

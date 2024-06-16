@@ -69,8 +69,14 @@
                     value="Renew"
                   />
                 </form>
-                <% } %>
-
+                <% } %> <% if (book.book_info.isReturn) { %>
+                <a
+                  href=""
+                  class="btn btn-xs btn-info disabled"
+                  aria-disabled="true"
+                  >Return</a
+                >
+                <% } else { %>
                 <form
                   action="/books/return/<%=book.book_info.id%>"
                   method="POST"
@@ -82,6 +88,7 @@
                     value="Return"
                   />
                 </form>
+                <% } %>
               </td>
             </tr>
             <% }) %>
