@@ -38,7 +38,7 @@
           <strong>Recent activities</strong>
         </div>
         <ul class="list-group list-group-flush">
-          <% for(var i = 0; i < activities.length; i++) { %> <%if(i > 5) break;
+          <% for(var i = 0; i < activities.length; i++) { %> <%if(i >= 5) break;
           %> <% if(activities[i].category =="Issue") { %>
           <li class="list-group-item">
             <%=user.username%> issued <%=activities[i].info.title%> at
@@ -48,6 +48,16 @@
           <li class="list-group-item">
             <%=user.username%> returned <%=activities[i].info.title%> at
             <%=activities[i].entryTime.toDateString()%>
+          </li>
+          <% } else if(activities[i].category =="Request") { %>
+          <li class="list-group-item">
+            <%=user.username%> requested <%=activities[i].info.title%> at
+            <%=activities[i].entryTime.toDateString()%>
+          </li>
+          <% } else if(activities[i].category =="Decline") { %>
+          <li class="list-group-item">
+            Admin declined <%=activities[i].info.title%> request of
+            <%=user.username%>at <%=activities[i].entryTime.toDateString()%>
           </li>
           <% } else if(activities[i].category =="Renew") { %>
           <li class="list-group-item">

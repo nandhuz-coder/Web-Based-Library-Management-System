@@ -41,7 +41,7 @@ exports.getDashboard = async (req, res, next) => {
       .skip(PER_PAGE * page - PER_PAGE)
       .limit(PER_PAGE)
       .exec();
-      
+
     await res.render("admin/index", {
       users_count: users_count,
       books_count: books_count,
@@ -119,7 +119,6 @@ exports.getAdminBookInventory = async (req, res, next) => {
     const filter = req.params.filter;
     const value = req.params.value;
 
-    // console.log(filter, value);
     // // constructing search object
     let searchObj = {};
     if (filter !== "all" && value !== "all") {
