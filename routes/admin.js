@@ -176,7 +176,7 @@ router.get(
 router.get(
   "/admin/book/decline/:id",
   middleware.isAdmin,
-  adminController.getAcceptRequest
+  adminController.getDeclineRequest
 );
 
 // //admin -> notifications

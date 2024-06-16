@@ -692,7 +692,7 @@ exports.postAdminRequest = async (req, res, next) => {
   }
 };
 
-//admin -> delete a book
+//admin -> Accept book Request
 /*  
     ? work Flow
     1. fetch request doc by params.id
@@ -779,6 +779,51 @@ exports.getAcceptRequest = async (req, res, next) => {
     await book.save();
     await activity.save();
 
+    //redirect
+    res.redirect("/admin/bookRequest/all/all/1");
+  } catch (err) {
+    console.log(err);
+    return res.redirect("back");
+  }
+};
+
+//admin -> Decline book Request
+/*  
+    ? work Flow
+    1. fetch request doc by params.id
+    2. fetch user by request.user_id
+    3. logging activity
+    4. clearing request
+    5. redirect('/admin/bookRequest/all/all/1)
+ */
+
+exports.getDeclineRequest = async (req, res, next) => {
+  const request = await Request.findById(req.params.id);
+  const user = await User.findById(request.user_id.id);
+
+  try {
+    // logging the activity
+    const activity = new Activity({
+      info: {
+        id: request._id,
+        title: request.book_info.title,
+      },
+      category: "Decline",
+      user_id: {
+        id: user._id,
+        username: user.username,
+      },
+    });
+
+    //Clearing request
+    await Request.findByIdAndDelete(req.params.id);
+    user.bookRequestInfo.pull({ _id: request.book_info.id });
+
+    // await ensure to synchronously save all database alteration
+    await user.save();
+    await activity.save();
+
+    //redirect
     res.redirect("/admin/bookRequest/all/all/1");
   } catch (err) {
     console.log(err);
