@@ -37,7 +37,7 @@ exports.getDashboard = async (req, res, next) => {
     const books_count = await Book.find().countDocuments();
     const activity_count = await Activity.find().countDocuments();
     const activities = await Activity.find()
-      .sort("-entryTime")
+      .sort({ entryTime: -1 })
       .skip(PER_PAGE * page - PER_PAGE)
       .limit(PER_PAGE);
     await res.render("admin/index", {
