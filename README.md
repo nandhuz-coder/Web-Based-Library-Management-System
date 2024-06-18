@@ -2,7 +2,7 @@
 
 ## Library-Management-System v1 is ending updates
 
-## [Library-Management-System v2] (https://github.com/nandhuz-coder/Web-Based-Library-Management-System-V2)
+## [Library-Management-System v2](https://github.com/nandhuz-coder/Web-Based-Library-Management-System-V2)
 
 ## Following feature will be added in this repo
 
