@@ -1,5 +1,9 @@
 # Library-Management-System
 
+## Library-Management-System v1 is ending updates
+
+## Library-Management-System v2 [http://localhost:3000]
+
 ## Following feature will be added in this repo
 
 1. Server side caching

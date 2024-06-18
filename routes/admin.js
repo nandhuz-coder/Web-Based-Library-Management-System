@@ -179,6 +179,12 @@ router.get(
   adminController.getDeclineRequest
 );
 
+// admin -> show return request books
+router.get(
+  "/admin/bookReturn/:filter/:value/:page",
+  middleware.isAdmin,
+  adminController.getAdminReturn
+);
 // //admin -> notifications
 // router.get("/admin/notifications", (req, res) => {
 //    res.send("This route is still under development. will be added in next version");
